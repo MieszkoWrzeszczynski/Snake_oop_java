@@ -40,11 +40,6 @@ class Ranking {
     }
 
     private void getRankingFromFile() {
-        String user_name;
-        String score;
-        OutputStream db;
-        String s = "";
-
 
         try {
             FileInputStream fstream = new FileInputStream(DB_NAME);
@@ -60,7 +55,7 @@ class Ranking {
 
             in.close();
 
-        } catch (Exception e) {//Catch exception if any
+        } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
 

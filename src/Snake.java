@@ -3,12 +3,12 @@ import org.jsfml.system.Vector2f;
 
 import java.util.Vector;
 
-public class Snake {
+class Snake {
     private enum_Direction direction;
     private int size;
     private Vector<RectangleShape> snake_body;
 
-    public Snake(int size, Vector2f spawn_position) {
+    Snake(int size, Vector2f spawn_position) {
         snake_body = new Vector();
         this.size = size;
         RectangleShape head = new RectangleShape();
@@ -84,7 +84,6 @@ public class Snake {
 
         RectangleShape bodyPart = new RectangleShape();
 
-        Vector2f last_item_position = snake_body.lastElement().getPosition();
         Vector2f dir = getDirection();
 
         float x = dir.x * size;

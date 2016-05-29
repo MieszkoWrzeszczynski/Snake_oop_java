@@ -13,6 +13,9 @@ class Menu extends Status {
     private Text header;
     private Text[] menuOptions;
 
+    Menu(Game.Enum_game_status status_type, RenderWindow window, String window_title, Font font) {
+        super(status_type, window, window_title, font);
+    }
 
     void update() {
         Vector2f mousePosition = new Vector2f((float) Mouse.getPosition(pnt_window).x, (float) Mouse.getPosition(pnt_window).y);
@@ -23,7 +26,6 @@ class Menu extends Status {
             else menuOptions[i].setColor(new Color(255, 255, 255, 255));
         }
     }
-
 
     void render() {
         pnt_window.clear(new Color(178, 30, 0, 255));
@@ -59,17 +61,9 @@ class Menu extends Status {
                         return Game.Enum_game_status.END;
                     break;
             }
-
         }
-
         return Game.Enum_game_status.MENU;
     }
-
-
-    Menu(Game.Enum_game_status status_type, RenderWindow window, String window_title, Font font) {
-        super(status_type, window, window_title, font);
-    }
-
 
     void init() {
         pnt_window.setMouseCursorVisible(true);
@@ -87,7 +81,7 @@ class Menu extends Status {
         menuOptions = new Text[ile];
         String[] str = new String[ile];
 
-        if (title.equals("Game over"))
+        if (title.equals("Game Over"))
             str[0] = "Play again";
         else
             str[0] = "Play";

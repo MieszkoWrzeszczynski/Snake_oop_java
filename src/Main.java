@@ -1,7 +1,6 @@
 public class Main {
     public static void main(String args[]) {
         Game game = new Game();
-        System.out.print(getNameFromArgs(args));
         game.setPlayerName(getNameFromArgs(args));
         game.start();
     }

@@ -5,7 +5,6 @@ import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.KeyEvent;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,14 +32,12 @@ class Play extends Status {
         String str_score = score + "";
 
         title = new Text();
-
         title.setString(str_score);
         title.setFont(pnt_font);
         title.setCharacterSize(86);
         title.setColor(new Color(255, 255, 255, 255));
         title.setStyle(Text.BOLD);
         title.setPosition(Game.SCRN_WIDTH / 2 - 3 * title.getGlobalBounds().width, 40);
-
 
         FileInputStream file_stream = null;
         try {

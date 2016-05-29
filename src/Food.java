@@ -7,6 +7,10 @@ import org.jsfml.system.Vector2f;
 import java.util.Random;
 
 class Food {
+
+    private RectangleShape body;
+    Color current_color;
+
     Food(int food_size, Vector2f respawn_position) {
         current_color = rand_color();
         body = new RectangleShape();
@@ -19,9 +23,6 @@ class Food {
     Food() {
         this(20, new Vector2f(300, 300));
     }
-
-    private RectangleShape body;
-    Color current_color;
 
     void respawn(Vector2f respawn_position) {
         current_color = rand_color();

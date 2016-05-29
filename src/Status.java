@@ -15,13 +15,9 @@ abstract class Status {
     }
 
     abstract void init();
-
     abstract void render();
-
     abstract void update();
-
     abstract Game.Enum_game_status getEvents();
-
 
     RenderWindow pnt_window;
     String title;
