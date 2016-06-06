@@ -9,7 +9,7 @@ import java.util.Random;
 class Food {
 
     private RectangleShape body;
-    Color current_color;
+    protected Color current_color;
 
     Food(int food_size, Vector2f respawn_position) {
         current_color = rand_color();
@@ -28,14 +28,6 @@ class Food {
         current_color = rand_color();
         body.setFillColor(current_color);
         body.setPosition(respawn_position);
-    }
-
-    void set_position(Vector2f new_position) {
-        body.setPosition(new_position);
-    }
-
-    Vector2f get_position() {
-        return body.getPosition();
     }
 
     void draw(RenderTarget target) {

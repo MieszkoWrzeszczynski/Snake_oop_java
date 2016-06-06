@@ -1,8 +1,13 @@
 public class Main {
     public static void main(String args[]) {
-        Game game = new Game();
-        game.setPlayerName(getNameFromArgs(args));
-        game.start();
+        Game game;
+        try {
+            game = new Game();
+            game.setPlayerName(getNameFromArgs(args));
+            game.start();
+        } catch (ResourcesException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static String getNameFromArgs(String args[]) {

@@ -1,10 +1,14 @@
 import org.jsfml.audio.Sound;
 import org.jsfml.audio.SoundBuffer;
-import org.jsfml.graphics.*;
+import org.jsfml.graphics.Color;
+import org.jsfml.graphics.Font;
+import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.Text;
 import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.KeyEvent;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,7 +24,6 @@ class Play extends Status {
     private Text title;
     private Snake snake;
     private Food[] tab;
-    private SoundBuffer buffer;
     private Sound sound;
 
     Play(Game.Enum_game_status status_type, RenderWindow window, String window_title, Font font) {
@@ -47,7 +50,7 @@ class Play extends Status {
         }
 
 
-        buffer = new SoundBuffer();
+        SoundBuffer buffer = new SoundBuffer();
         sound = new Sound();
 
         try {
@@ -135,7 +138,7 @@ class Play extends Status {
     private void checkScoreInRank() {
         int best_score = Game.rank.getTheBestPlayerScore();
 
-        if (best_score < score) {
+        if (best_score < this.score) {
             pnt_window.clear(new Color(178, 30, 0, 255));
             title.setPosition((float) (Game.SCRN_WIDTH / 2 - 1.5 * title.getGlobalBounds().width), 40);
             title.setString(Game.getPlayerName() + " masz nowy record!");

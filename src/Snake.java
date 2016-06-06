@@ -1,10 +1,20 @@
-import org.jsfml.graphics.*;
+import org.jsfml.graphics.Color;
+import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.RectangleShape;
+import org.jsfml.graphics.RenderTarget;
 import org.jsfml.system.Vector2f;
 
 import java.util.Vector;
 
 class Snake {
     private enum_Direction direction;
+
+    enum enum_Direction {
+        DIR_UP,
+        DIR_DOWN,
+        DIR_LEFT,
+        DIR_RIGHT
+    }
     private int size;
     private Vector<RectangleShape> snake_body;
 
@@ -20,13 +30,6 @@ class Snake {
         head.setPosition(spawn_position);
 
         snake_body.addElement(head);
-    }
-
-    enum enum_Direction {
-        DIR_UP,
-        DIR_DOWN,
-        DIR_LEFT,
-        DIR_RIGHT
     }
 
     FloatRect GetHeadFloatRect() {

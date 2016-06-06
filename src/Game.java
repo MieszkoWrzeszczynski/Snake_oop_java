@@ -6,6 +6,7 @@ import org.jsfml.system.Vector2i;
 import org.jsfml.window.ContextSettings;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,7 +20,6 @@ class Game {
     private static String playerName;
     private Status game_status;
     private Enum_game_status actualGame_status;
-    private SoundBuffer buffer;
     private Sound sound;
     static Ranking rank;
 
@@ -35,50 +35,45 @@ class Game {
         GAME_OVER
     }
 
-    Game() {
+    Game() throws ResourcesException {
         ContextSettings settings = new ContextSettings(8);
+
         window = new RenderWindow();
         window.create(new VideoMode(SCRN_WIDTH, SCRN_HEIGHT), "Snake", WindowStyle.CLOSE, settings);
         window.setFramerateLimit(60);
-        Vector2i window_position = new Vector2i(0, 0);
-        window.setPosition(window_position);
+        window.setPosition(new Vector2i(0, 0));
 
         font = new Font();
+        SoundBuffer buffer = new SoundBuffer();
+        sound = new Sound();
 
-        FileInputStream file_stream = null;
+        rank = new Ranking();
+
+        FileInputStream file_stream;
+
 
         try {
             file_stream = new FileInputStream("resources/font.ttf");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new ResourcesException("I have not found file font.ttf");
         }
 
         try {
             font.loadFromStream(file_stream);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            throw new ResourcesException("I have not loaded fonts");
         }
-
-        actualGame_status = Game.Enum_game_status.MENU;
-        game_status = new Menu(Enum_game_status.MENU, window, "Snake", font);
-        game_status.init();
-
 
         try {
             file_stream = new FileInputStream("resources/loop.wav");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new ResourcesException("I have not found file loop.wav");
         }
 
-
-        buffer = new SoundBuffer();
-        sound = new Sound();
-
         try {
-
             buffer.loadFromStream(file_stream);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ResourcesException("I have not loaded sounds");
         }
 
         sound.setBuffer(buffer);
@@ -87,7 +82,9 @@ class Game {
         sound.setVolume(40.f);
         sound.play();
 
-        rank = new Ranking();
+        actualGame_status = Game.Enum_game_status.MENU;
+        game_status = new Menu(Enum_game_status.MENU, window, "Snake", font);
+        game_status.init();
     }
 
     void start() {
@@ -98,7 +95,11 @@ class Game {
             handleState();
         }
 
-        rank.saveToFile();
+        try {
+            rank.saveToFile();
+        } catch (ResourcesException e) {
+            System.out.println(e.getMessage());
+        }
         sound.stop();
     }
 

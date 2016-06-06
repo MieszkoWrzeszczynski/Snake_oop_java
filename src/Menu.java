@@ -1,7 +1,7 @@
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Font;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
-import org.jsfml.graphics.Color;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
@@ -20,10 +20,10 @@ class Menu extends Status {
     void update() {
         Vector2f mousePosition = new Vector2f((float) Mouse.getPosition(pnt_window).x, (float) Mouse.getPosition(pnt_window).y);
 
-        for (int i = 0; i < 2; i++) {
-            if (menuOptions[i].getGlobalBounds().contains(mousePosition))
-                menuOptions[i].setColor(new Color(255, 138, 0, 255));
-            else menuOptions[i].setColor(new Color(255, 255, 255, 255));
+        for (Text menuOption : menuOptions) {
+            if (menuOption.getGlobalBounds().contains(mousePosition))
+                menuOption.setColor(new Color(255, 138, 0, 255));
+            else menuOption.setColor(new Color(255, 255, 255, 255));
         }
     }
 
@@ -31,8 +31,8 @@ class Menu extends Status {
         pnt_window.clear(new Color(178, 30, 0, 255));
         pnt_window.draw(header);
 
-        for (int i = 0; i < 2; i++)
-            pnt_window.draw(menuOptions[i]);
+        for (Text menuOption : menuOptions)
+            pnt_window.draw(menuOption);
 
         pnt_window.display();
     }
@@ -88,7 +88,7 @@ class Menu extends Status {
 
         str[1] = "Exit";
 
-        for (int i = 0; i < ile; i++) {
+        for (int i = 0; i < menuOptions.length; i++) {
             menuOptions[i] = new Text();
             menuOptions[i].setFont(pnt_font);
             menuOptions[i].setCharacterSize(65);

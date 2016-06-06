@@ -35,11 +35,7 @@ class User {
 class UserComparator implements Comparator<User> {
     @Override
     public int compare(User A, User B) {
-        if (A.getScore() > B.getScore()) {
-            return 1;
-        } else {
-            return -1;
-        }
+        return (A.getScore() > B.getScore()) ? 1 : -1;
     }
 
 }

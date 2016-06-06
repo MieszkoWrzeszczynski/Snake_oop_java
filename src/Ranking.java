@@ -1,11 +1,16 @@
 import java.io.*;
-import java.util.*;
+import java.util.TreeSet;
 
 
 class Ranking {
-    Ranking() {
+
+    private TreeSet<User> user;
+    private static final String DB_NAME = "resources/ranking.csv";
+
+    Ranking() throws ResourcesException {
         user = new TreeSet<>(new UserComparator());
         getRankingFromFile();
+
     }
 
     int getTheBestPlayerScore() {
@@ -19,8 +24,8 @@ class Ranking {
         user.add(new User(playerName, playerScore));
     }
 
-    void saveToFile() {
-        BufferedWriter bw = null;
+    void saveToFile() throws ResourcesException {
+        BufferedWriter bw;
 
         try {
             bw = new BufferedWriter(new FileWriter(DB_NAME, false));
@@ -28,18 +33,15 @@ class Ranking {
             for (User e : user)
                 bw.write(e.getName() + "\t" + e.getScore() + "\n");
 
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } finally {
-            if (bw != null) try {
-                bw.close();
-            } catch (IOException ioe2) {
+            bw.close();
 
-            }
+        } catch (IOException ioe) {
+            throw new ResourcesException("I can not save ranking to file ranking.csv");
         }
+
     }
 
-    private void getRankingFromFile() {
+    private void getRankingFromFile() throws ResourcesException {
 
         try {
             FileInputStream fstream = new FileInputStream(DB_NAME);
@@ -48,23 +50,19 @@ class Ranking {
             String strLine;
 
             while ((strLine = br.readLine()) != null) {
-                String[] words = strLine.split("\t");
-                user.add(new User(words[0], Integer.parseInt(words[1])));
-
+                String[] user_info = strLine.split("\t");
+                user.add(new User(user_info[0], Integer.parseInt(user_info[1])));
             }
 
             in.close();
 
         } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            throw new ResourcesException("I can not load ranking from file ranking.csv");
         }
 
 
     }
 
-
-    private TreeSet<User> user;
-    private static final String DB_NAME = "resources/ranking.csv";
 }
 
 

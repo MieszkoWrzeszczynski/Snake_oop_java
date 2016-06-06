@@ -25,14 +25,6 @@ class ExtraFood extends Food {
         target.draw(extraFoodBody);
     }
 
-    void set_position(Vector2f new_position) {
-        extraFoodBody.setPosition(new_position);
-    }
-
-    Vector2f get_position() {
-        return extraFoodBody.getPosition();
-    }
-
     FloatRect GetFoodBounds() {
         return extraFoodBody.getGlobalBounds();
     }
